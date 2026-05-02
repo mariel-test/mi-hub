@@ -1,316 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distribuir — Mariel Ferreyra</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans);color:var(--color-text-primary);background:transparent}
-.nav{display:flex;gap:4px;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1.5rem;padding-bottom:0}
-.nav-btn{background:none;border:none;padding:8px 16px;font-size:13px;color:var(--color-text-secondary);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-0.5px;font-family:var(--font-sans);border-radius:0}
-.nav-btn.active{color:var(--color-text-primary);border-bottom-color:var(--color-text-primary);font-weight:500}
-.tab{display:none}.tab.active{display:block}
-.hero{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:2rem 1.5rem;margin-bottom:1.5rem;border:0.5px solid var(--color-border-tertiary)}
-.avatar{width:64px;height:64px;border-radius:50%;background:#3C3489;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:500;color:#EEEDFE;margin-bottom:1rem}
-.hero h1{font-size:20px;font-weight:500;margin-bottom:4px}
-.hero .role{font-size:13px;color:var(--color-text-secondary);line-height:1.5;margin-bottom:1rem;max-width:560px}
-.links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.25rem}
-.link-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:0.5px solid var(--color-border-secondary);font-size:12px;color:var(--color-text-secondary);text-decoration:none;background:var(--color-background-primary)}
-.link-chip:hover{border-color:var(--color-border-primary);color:var(--color-text-primary)}
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
-.stat{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px;text-align:center}
-.stat-n{font-size:22px;font-weight:500;color:var(--color-text-primary)}
-.stat-l{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
-.section-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem}
-.section-title{font-size:13px;font-weight:500;color:var(--color-text-secondary);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em}
-.tag-list{display:flex;flex-wrap:wrap;gap:6px}
-.tag{padding:3px 10px;border-radius:999px;font-size:12px;background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
-.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.editor-left{display:flex;flex-direction:column;gap:8px}
-input[type=text].title-input{width:100%;padding:8px 12px;font-size:15px;font-weight:500;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-family:var(--font-sans)}
-textarea.body-input{width:100%;flex:1;min-height:320px;padding:12px;font-size:13px;line-height:1.7;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-family:var(--font-sans);resize:vertical}
-.preview-panel{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;overflow-y:auto;max-height:400px}
-.preview-panel h2{font-size:17px;font-weight:500;margin-bottom:12px;line-height:1.4}
-.preview-panel p{font-size:13px;line-height:1.8;margin-bottom:8px;color:var(--color-text-primary)}
-.toolbar{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap}
-.tool-btn{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:4px 10px;font-size:12px;cursor:pointer;color:var(--color-text-secondary);font-family:var(--font-sans)}
-.tool-btn:hover{background:var(--color-background-primary);color:var(--color-text-primary)}
-.dist-grid{display:grid;grid-template-columns:1fr;gap:1rem}
-.dist-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
-.dist-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary)}
-.dist-name{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
-.dist-dot{width:8px;height:8px;border-radius:50%}
-.dot-li{background:#0A66C2}.dot-ig{background:#C13584}.dot-yt{background:#FF0000}
-.dist-body{padding:12px 16px;font-size:12px;line-height:1.8;color:var(--color-text-secondary);background:var(--color-background-primary);min-height:80px;white-space:pre-wrap;font-family:var(--font-mono)}
-.copy-btn{background:none;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:4px 12px;font-size:11px;cursor:pointer;color:var(--color-text-secondary);font-family:var(--font-sans)}
-.copy-btn:hover{background:var(--color-background-secondary)}
-.copy-btn.copied{color:#0F6E56;border-color:#0F6E56}
-.gen-btn{background:var(--color-text-primary);color:var(--color-background-primary);border:none;border-radius:var(--border-radius-md);padding:8px 20px;font-size:13px;cursor:pointer;font-family:var(--font-sans);font-weight:500}
-.gen-btn:hover{opacity:0.85}
-.empty-state{text-align:center;padding:2rem;color:var(--color-text-secondary);font-size:13px}
-.char-count{font-size:11px;color:var(--color-text-secondary);text-align:right}
-.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px}
-.badge-li{background:#E6F1FB;color:#185FA5}
-.badge-ig{background:#FBEAF0;color:#993556}
-.badge-yt{background:#FCEBEB;color:#A32D2D}
-</style>
-
-<h2 class="sr-only">Hub de contenido de Mariel Ferreyra — landing, editor de artículos y distribución por red social</h2>
-
-<div class="nav">
-  <button class="nav-btn active" onclick="switchTab('home')">Perfil</button>
-  <button class="nav-btn" onclick="switchTab('editor')">Editor</button>
-  <button class="nav-btn" onclick="switchTab('distribute')">Distribuir</button>
-</div>
-
-<div id="tab-home" class="tab active">
-  <div class="hero">
-    <div class="avatar">MF</div>
-    <h1>Mariel Ferreyra</h1>
-    <p class="role">Senior QA Automation Engineer · Quality Strategy · AI-Assisted<br>Python · TypeScript · Playwright · Data ETL/ELT · Fintech · Banca · Automotriz</p>
-    <div class="links">
-      <a class="link-chip" href="https://www.linkedin.com/in/ferreyramariel" target="_blank">🔗 LinkedIn</a>
-      <a class="link-chip" href="https://github.com" target="_blank">🐙 GitHub</a>
-      <a class="link-chip" href="https://www.notion.so/QA-StrategyConsultant-10-years-ensuringquality-in-Fintech-Banking-and-ecommerce-25e7430426c780b3ad1de625fd7aef85" target="_blank">📓 Notion Portfolio</a>
-      <a class="link-chip" href="mailto:mariel.ferreyra@gmail.com">✉ Email</a>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-n">15+</div><div class="stat-l">años de experiencia</div></div>
-      <div class="stat"><div class="stat-n">5</div><div class="stat-l">industrias</div></div>
-      <div class="stat"><div class="stat-n">500K+</div><div class="stat-l">usuarios impactados</div></div>
-      <div class="stat"><div class="stat-n">0</div><div class="stat-l">downtime en migraciones</div></div>
-    </div>
-  </div>
-
-  <div class="section-card">
-    <div class="section-title">Stack técnico</div>
-    <div class="tag-list">
-      <span class="tag">Playwright</span><span class="tag">pytest</span><span class="tag">Python</span>
-      <span class="tag">TypeScript</span><span class="tag">Postman / Newman</span><span class="tag">GitHub Actions</span>
-      <span class="tag">Docker</span><span class="tag">SQL</span><span class="tag">Jira</span>
-      <span class="tag">JMETER</span><span class="tag">BrowserStack</span><span class="tag">API REST</span>
-      <span class="tag">CI/CD</span><span class="tag">Mainframe / COBOL</span><span class="tag">SAP FI</span>
-    </div>
-  </div>
-
-  <div class="section-card">
-    <div class="section-title">Especialidades</div>
-    <div class="tag-list">
-      <span class="tag">QA Automation</span><span class="tag">Migraciones de sistemas</span>
-      <span class="tag">Auditoría IT</span><span class="tag">Gestión de riesgos</span>
-      <span class="tag">Testing de APIs</span><span class="tag">AI / LLM Testing</span>
-      <span class="tag">Fintech · Banca</span><span class="tag">Supply chain</span>
-      <span class="tag">Release Management</span>
-    </div>
-  </div>
-
-  <div style="text-align:center;margin-top:1rem">
-    <button class="gen-btn" onclick="switchTab('editor')">Escribir nuevo artículo →</button>
+<!-- Auth overlay -->
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-card">
+    <div class="auth-icon">🔒</div>
+    <div class="auth-title">Área Privada</div>
+    <div class="auth-sub">Esta sección es solo para vos.</div>
+    <input class="auth-input" type="password" id="auth-input" placeholder="Contraseña"
+      onkeydown="if(event.key==='Enter') checkAuth()">
+    <button class="auth-btn" onclick="checkAuth()">Ingresar</button>
+    <div class="auth-error" id="auth-error">Contraseña incorrecta. Intentá de nuevo.</div>
   </div>
 </div>
 
-<div id="tab-editor" class="tab">
-  <div class="editor-grid">
-    <div class="editor-left">
-      <input type="text" class="title-input" id="art-title" placeholder="Título del artículo..." oninput="updatePreview()">
-      <div class="toolbar">
-        <button class="tool-btn" onclick="insertMd('**','**')">B</button>
-        <button class="tool-btn" onclick="insertMd('_','_')"><em>i</em></button>
-        <button class="tool-btn" onclick="insertMd('\n## ','')">H2</button>
-        <button class="tool-btn" onclick="insertMd('\n• ','')">Lista</button>
-        <button class="tool-btn" onclick="insertMd('\n> ','')">Quote</button>
-        <button class="tool-btn" onclick="insertMd('\n```\n','\n```')">Código</button>
-        <button class="tool-btn" onclick="insertMd('#️⃣ ','')">Emoji</button>
-      </div>
-      <textarea class="body-input" id="art-body" placeholder="Escribí tu artículo acá...&#10;&#10;Usá ## para subtítulos, **texto** para negrita, • para listas, > para citas.&#10;&#10;Tip: empezá con un gancho fuerte. Primera oración = por qué importa esto." oninput="updatePreview()"></textarea>
-      <div class="char-count" id="char-count">0 caracteres</div>
-      <button class="gen-btn" style="align-self:flex-end" onclick="switchTab('distribute')">Distribuir →</button>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-badge">
+      <span>Senior QA Engineering Automation · AI Assisted</span>
     </div>
+    <nav class="header-nav">
+      <a href="index.html" class="nav-btn">Presentacion</a>
+      <a href="perfil.html" class="nav-btn">Perfil</a>
+      <a href="articulos.html" class="nav-btn">Articulos</a>
+      <div class="nav-sep"></div>
+      <a href="edicion.html" class="nav-btn nav-btn--private active">🔒 Edicion</a>
+    </nav>
+  </div>
+  <div class="header-line"></div>
+</header>
+
+<main class="page-content">
+
+  <div class="dist-top">
     <div>
-      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em">Vista previa</div>
-      <div class="preview-panel" id="preview-panel">
-        <div class="empty-state">Empezá a escribir para ver la previsualización</div>
-      </div>
+      <h1 class="dist-article-title" id="dist-title-label">Sin título</h1>
+      <p class="dist-article-meta" id="dist-meta">Generá los formatos para adaptar tu contenido a cada red.</p>
     </div>
-  </div>
-</div>
-
-<div id="tab-distribute" class="tab">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
-    <div>
-      <div style="font-size:15px;font-weight:500" id="dist-title-label">Sin título</div>
-      <div style="font-size:12px;color:var(--color-text-secondary)" id="dist-char-label">0 caracteres en el artículo</div>
-    </div>
-    <button class="gen-btn" onclick="generateDist()">Generar formatos</button>
+    <button class="gen-btn" onclick="generateAll()">⚡ Generar formatos</button>
   </div>
 
-  <div class="dist-grid">
+  <div class="dist-cards">
+
+    <!-- LinkedIn -->
     <div class="dist-card">
-      <div class="dist-header">
-        <div class="dist-name"><div class="dist-dot dot-li"></div>LinkedIn <span class="badge badge-li">Carrusel / Post</span></div>
-        <button class="copy-btn" id="copy-li" onclick="copyDist('li')">Copiar</button>
+      <div class="dist-card-header">
+        <div class="dist-card-name">
+          <div class="dist-dot dot-li"></div>
+          LinkedIn
+          <span class="dist-badge badge-li">Carrusel / Post</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="copy-btn" id="copy-li" onclick="copyDist('li')">Copiar</button>
+          <a id="share-li" href="#" target="_blank" class="copy-btn" style="text-decoration:none">Abrir LinkedIn</a>
+        </div>
       </div>
-      <div class="dist-body" id="dist-li">Generá los formatos para ver el contenido aquí.</div>
-      <div class="char-count" style="padding:4px 16px 8px" id="cc-li"></div>
+      <div class="dist-card-body" id="dist-li" contenteditable="true">Generá los formatos para ver el contenido aquí.</div>
+      <div class="dist-card-footer" id="cc-li"></div>
     </div>
 
+    <!-- Instagram -->
     <div class="dist-card">
-      <div class="dist-header">
-        <div class="dist-name"><div class="dist-dot dot-ig"></div>Instagram <span class="badge badge-ig">Caption + hashtags</span></div>
-        <button class="copy-btn" id="copy-ig" onclick="copyDist('ig')">Copiar</button>
+      <div class="dist-card-header">
+        <div class="dist-card-name">
+          <div class="dist-dot dot-ig"></div>
+          Instagram
+          <span class="dist-badge badge-ig">Caption + hashtags</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="copy-btn" id="copy-ig" onclick="copyDist('ig')">Copiar</button>
+          <a id="share-ig" href="https://www.instagram.com" target="_blank" class="copy-btn" style="text-decoration:none">Abrir Instagram</a>
+        </div>
       </div>
-      <div class="dist-body" id="dist-ig">Generá los formatos para ver el contenido aquí.</div>
-      <div class="char-count" style="padding:4px 16px 8px" id="cc-ig"></div>
+      <div class="dist-card-body" id="dist-ig" contenteditable="true">Generá los formatos para ver el contenido aquí.</div>
+      <div class="dist-card-footer" id="cc-ig"></div>
     </div>
 
+    <!-- YouTube -->
     <div class="dist-card">
-      <div class="dist-header">
-        <div class="dist-name"><div class="dist-dot dot-yt"></div>YouTube <span class="badge badge-yt">Descripción + guión</span></div>
-        <button class="copy-btn" id="copy-yt" onclick="copyDist('yt')">Copiar</button>
+      <div class="dist-card-header">
+        <div class="dist-card-name">
+          <div class="dist-dot dot-yt"></div>
+          YouTube
+          <span class="dist-badge badge-yt">Descripción + guión</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="copy-btn" id="copy-yt" onclick="copyDist('yt')">Copiar</button>
+          <a href="https://studio.youtube.com" target="_blank" class="copy-btn" style="text-decoration:none">Abrir Studio</a>
+        </div>
       </div>
-      <div class="dist-body" id="dist-yt">Generá los formatos para ver el contenido aquí.</div>
-      <div class="char-count" style="padding:4px 16px 8px" id="cc-yt"></div>
+      <div class="dist-card-body" id="dist-yt" contenteditable="true">Generá los formatos para ver el contenido aquí.</div>
+      <div class="dist-card-footer" id="cc-yt"></div>
     </div>
+
   </div>
-  <div style="margin-top:1rem;text-align:center">
-    <button class="tool-btn" onclick="switchTab('editor')">← Volver al editor</button>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-left">
+    <a href="edicion.html" class="footer-btn">← Anterior</a>
   </div>
-</div>
+  <div class="footer-center">
+    <a href="#" onclick="shareToLi()" class="footer-btn footer-btn--violet">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://www.instagram.com" target="_blank" class="footer-btn footer-btn--violet">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      Instagram
+    </a>
+    <a href="https://studio.youtube.com" target="_blank" class="footer-btn footer-btn--violet">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      YouTube
+    </a>
+  </div>
+  <div class="footer-right">
+    <a href="articulos.html" class="footer-btn">Ver Articulos →</a>
+  </div>
+</footer>
 
 <script>
-function switchTab(id){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  const idx={home:0,editor:1,distribute:2}[id];
-  document.querySelectorAll('.nav-btn')[idx].classList.add('active');
-  if(id==='distribute') refreshDistMeta();
-}
+const PASS = 'mariel.dev';
+const SESSION_KEY = 'mf_auth';
+const DRAFT_KEY = 'mf_draft';
 
-function updatePreview(){
-  const title=document.getElementById('art-title').value;
-  const body=document.getElementById('art-body').value;
-  const total=(title+body).length;
-  document.getElementById('char-count').textContent=total+' caracteres';
-  const panel=document.getElementById('preview-panel');
-  if(!title && !body){panel.innerHTML='<div class="empty-state">Empezá a escribir para ver la previsualización</div>';return;}
-  let html='';
-  if(title) html+=`<h2>${esc(title)}</h2>`;
-  if(body){
-    let lines=body.split('\n');
-    let out='';
-    for(let l of lines){
-      if(l.startsWith('## ')) out+=`<h3 style="font-size:14px;font-weight:500;margin:12px 0 4px">${esc(l.slice(3))}</h3>`;
-      else if(l.startsWith('> ')) out+=`<blockquote style="border-left:3px solid var(--color-border-secondary);padding-left:10px;color:var(--color-text-secondary);font-style:italic;margin:8px 0">${esc(l.slice(2))}</blockquote>`;
-      else if(l.startsWith('• ')) out+=`<p style="padding-left:12px">• ${renderInline(l.slice(2))}</p>`;
-      else if(l.startsWith('```')||l==='```') out+=``;
-      else if(l.trim()==='') out+=`<br>`;
-      else out+=`<p>${renderInline(l)}</p>`;
-    }
-    html+=out;
+/* ---- Auth ---- */
+function checkAuth() {
+  const val = document.getElementById('auth-input').value;
+  if (val === PASS) {
+    sessionStorage.setItem(SESSION_KEY, '1');
+    document.getElementById('auth-overlay').style.display = 'none';
+    init();
+  } else {
+    document.getElementById('auth-error').classList.add('show');
+    document.getElementById('auth-input').value = '';
+    document.getElementById('auth-input').focus();
   }
-  panel.innerHTML=html;
 }
 
-function renderInline(t){
-  return esc(t).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/_(.*?)_/g,'<em>$1</em>');
+if (sessionStorage.getItem(SESSION_KEY) === '1') {
+  document.getElementById('auth-overlay').style.display = 'none';
+  init();
+} else {
+  document.getElementById('auth-overlay').style.display = 'flex';
 }
 
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-function insertMd(before,after){
-  const ta=document.getElementById('art-body');
-  const s=ta.selectionStart,e=ta.selectionEnd;
-  const sel=ta.value.substring(s,e);
-  ta.value=ta.value.substring(0,s)+before+sel+after+ta.value.substring(e);
-  ta.selectionStart=s+before.length;
-  ta.selectionEnd=s+before.length+sel.length;
-  ta.focus();
-  updatePreview();
+function init() {
+  try {
+    const draft = JSON.parse(localStorage.getItem(DRAFT_KEY));
+    if (draft && (draft.title || draft.body)) {
+      document.getElementById('dist-title-label').textContent = draft.title || 'Sin título';
+      document.getElementById('dist-meta').textContent =
+        `${(draft.title + draft.body).length} caracteres en el borrador. Generá los formatos abajo.`;
+    }
+  } catch {}
 }
 
-function refreshDistMeta(){
-  const t=document.getElementById('art-title').value||'Sin título';
-  const b=document.getElementById('art-body').value;
-  document.getElementById('dist-title-label').textContent=t;
-  document.getElementById('dist-char-label').textContent=(t+b).length+' caracteres en el artículo';
+/* ---- Generate ---- */
+function getDraft() {
+  try { return JSON.parse(localStorage.getItem(DRAFT_KEY)) || {}; }
+  catch { return {}; }
 }
 
-function generateDist(){
-  const title=document.getElementById('art-title').value.trim();
-  const body=document.getElementById('art-body').value.trim();
-  if(!title&&!body){alert('Escribí algo en el editor primero.');return;}
+function generateAll() {
+  const draft = getDraft();
+  const title = draft.title || 'Nueva publicación';
+  const body = draft.body || '';
 
-  const plain=body.replace(/\*\*(.*?)\*\*/g,'$1').replace(/_(.*?)_/g,'$1').replace(/^## /gm,'').replace(/^> /gm,'').replace(/^• /gm,'→ ').replace(/```[\s\S]*?```/g,'[código]');
-  const sentences=plain.split(/(?<=[.!?])\s+/).filter(s=>s.length>10);
-  const hook=sentences[0]||'';
-  const firstLines=sentences.slice(0,3).join(' ');
+  const plain = body
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/_(.*?)_/g, '$1')
+    .replace(/^## /gm, '')
+    .replace(/^> /gm, '')
+    .replace(/^• /gm, '→ ')
+    .replace(/```[\s\S]*?```/g, '[código]')
+    .replace(/---/g, '');
 
-  const liText=`📌 ${title||'Nueva publicación'}
+  const sentences = plain.split(/(?<=[.!?])\s+/).filter(s => s.length > 8);
+  const hook = sentences[0] || title;
+  const bullets = body.match(/^• .+/gm) || [];
 
-${firstLines}
+  /* LinkedIn */
+  const liText = `📌 ${title}
 
-${buildBullets(body)}
-🔑 ¿Qué te llevás?
+${hook}
 
-${plain.substring(0,600).trim()}...
+${bullets.slice(0, 4).map(b => '✅ ' + b.slice(2)).join('\n')}${bullets.length ? '\n' : ''}
+${plain.substring(0, 700).trim()}${plain.length > 700 ? '...' : ''}
 
-👉 Leé el artículo completo en los comentarios.
+👉 ¿Te resultó útil? Compartí con tu equipo.
 
 ---
-#QAAutomation #SoftwareTesting #Python #Playwright #Fintech #AI #CalidadDeSoftware #TestingAutomatizado #Córdoba #Argentina`;
-
-  const igText=`${hook ? hook+'✨' : title}
-
-${plain.substring(0,220).trim()}...
-
-💬 ¿Qué opinas? Contame en los comentarios 👇
-
-.
-.
-.
-#QAAutomation #SoftwareTesting #TechEnEspañol #Playwright #Python #FinTech #WomenInTech #ArgentinaTech #TestingTips #DevOps #CI_CD #APItesting #CalidadDigital #CódobaTech`;
-
-  const ytText=`${title||'Nuevo video'}
-
-📋 DESCRIPCIÓN
-${plain.substring(0,400).trim()}
-
-⏱ TIMESTAMPS
-00:00 Intro
-01:30 Contexto del problema
-04:00 Solución paso a paso
-08:00 Demo en vivo
-12:00 Conclusiones y próximos pasos
-
-🔗 RECURSOS MENCIONADOS
-• Portfolio Notion: notion.so/QA-Strategy-Consultant
-• LinkedIn: linkedin.com/in/ferreyramariel
-• GitHub: github.com/marielferreyra
-
-🎬 GUIÓN INTRO SUGERIDO
-"Hola, soy Mariel Ferreyra, Senior QA Automation Engineer con más de 15 años en fintech, banca y automotriz. Hoy te cuento ${title?title.toLowerCase():'todo sobre este tema'} — algo que me costó aprender y que te va a ahorrar horas de trabajo."
-
----
-#QAAutomation #Playwright #Python #SoftwareTesting #TechEnEspañol`;
-
-  document.getElementById('dist-li').textContent=liText;
-  document.getElementById('dist-ig').textContent=igText;
-  document.getElementById('dist-yt').textContent=ytText;
-  document.getElementById('cc-li').textContent=liText.length+' caracteres';
-  document.getElementById('cc-ig').textContent=igText.length+' / 2200 máx Instagram';
-  document.getElementById('cc-yt').textContent=ytText.length+' caracteres';
-}
-
-function buildBullets(body){
-  const bullets=body.match(/^• .+/gm)||[];
-  if(bullets.length) return bullets.slice(0,4).map(b=>'✅ '+b.slice(2)).join('\n')+'\n';
-  return '';
-}
-
-function copyDist(id){
-  const el=document.getElementById('dist-'+id);
-  const btn=document.getElementById('copy-'+id);
-  navigator.clipboard.writeText(el.textContent).then(()=>{
-    btn.textContent='✓ Copiado';
-    btn.classList.add('copied');
-    setTimeout(()=>{btn.textContent='Copiar';btn.classList.remove('copied');},2000);
-  });
-}
-</script>
